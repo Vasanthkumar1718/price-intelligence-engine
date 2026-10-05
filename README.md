@@ -4,11 +4,51 @@ An end-to-end data pipeline and predictive analytics application that harvests l
 
 ---
 
+## 🎯 Problem Statement
+
+In the modern e-commerce landscape, product pricing directly dictates customer conversion rates, inventory velocity, and gross margins. However, mid-sized retailers and digital sellers encounter critical bottlenecks:
+
+* **Manual & Labor-Intensive Tracking**: Category managers spend hours manually checking rival listings and manually recording volatile prices across spreadsheets.
+* **Pricing Inefficiencies**: Setting prices based on guesswork leads to either **underpricing** (eroding profit margins) or **overpricing** (losing customers to competitors).
+* **Information Asymmetry**: Businesses lack clear visibility into how non-price factors—such as consumer review ratings and live inventory stock status—correlate with competitor pricing strategies across the market.
+
+### 💡 The Solution
+This engine replaces manual price tracking with an automated end-to-end architecture:
+1. **Automated Harvesting**: Programmatically crawls multi-page competitor catalogs to collect fresh market pricing, review distributions, and inventory status.
+2. **Persistent Storage & Cleaning**: Sanitizes unstructured web data and persists normalized records in a local relational SQL database.
+3. **Machine Learning-Driven Simulations**: Fits a Random Forest regression model to discover underlying market pricing patterns, providing real-time price recommendations and confidence corridors for new inventory launches.
+4. **Stakeholder Decision Dashboard**: Delivers an interactive web portal where business teams can filter catalogs, view market distributions, and test what-if pricing scenarios.
+
+---
+
 ## 📌 Key Architectural Highlights
 * **Automated Data Harvesting**: Crawls multi-page catalog listings from a live web application using `BeautifulSoup` and `requests`.
 * **Structured Ingestion & Validation**: Cleans raw HTML text, strips currency notations via regex, imputes missing values, and loads normalized records into a relational `SQLite` database.
 * **Predictive Pricing Engine**: Trains a `RandomForestRegressor` via `scikit-learn` to identify pricing elasticity based on product review scores and inventory availability.
 * **Interactive Control Center**: Deploys an executive-ready `Streamlit` and `Plotly` dashboard featuring catalog KPIs, dynamic distribution charts, and a real-time price simulation engine.
+
+---
+
+## 📊 Live Application Showcase
+
+### 1. Market Analytics & Catalog Insights
+Dynamic price distribution histograms and average price-to-rating breakdowns rendered via Plotly, backed by an executive KPI control bar.
+
+![Market Analytics & Insights](assets/analytics_tab.png)
+
+---
+
+### 2. Predictive Pricing Simulator (In-Stock Scenario)
+Generates optimal price points and dynamic confidence corridors based on live trained Random Forest regression models.
+
+![Predictive Pricing Simulator - In Stock](assets/simulator_in_stock.png)
+
+---
+
+### 3. Pricing Simulator (Stock Depletion Scenario)
+Simulates pricing elasticity and market entry corridors when inventory transitions to out-of-stock status.
+
+![Predictive Pricing Simulator - Out of Stock](assets/simulator_out_of_stock.png)
 
 ---
 
@@ -66,14 +106,6 @@ An end-to-end data pipeline and predictive analytics application that harvests l
    python model.py          # Trains pricing model & serializes model artifacts
    streamlit run app.py     # Launches the interactive web dashboard
    ```
-
----
-
-## 📊 Live Application Features
-
-* **Control Center**: Dynamic sidebar filtering by star rating and price thresholds with single-click pipeline synchronization.
-* **Market Analytics Tab**: Executive KPI summary cards (Tracked Catalog, Average Price, Median Price, Stock Rate), dynamic price distribution histograms, and price-to-rating trends rendered via Plotly.
-* **Predictive Pricing Simulator**: Live inference using the trained Random Forest model with dynamic confidence corridor bands.
 
 ---
 
